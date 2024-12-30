@@ -24,7 +24,7 @@ const post = () => {
     formData.append('description', description.value);
     formData.append('year', year.value);
     axios.defaults.headers.common['Authorization'] = token.value;
-    axios.post('./api/company-histories', formData)
+    axios.post('./api/company-histories', ormData)
         .then(res => {
             alertstore.showSuccessToast(res.data.message);
             setTimeout(() => {

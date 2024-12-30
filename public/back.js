@@ -23354,7 +23354,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('description', description.value);
       formData.append('year', year.value);
       axios__WEBPACK_IMPORTED_MODULE_3__["default"].defaults.headers.common['Authorization'] = token.value;
-      axios__WEBPACK_IMPORTED_MODULE_3__["default"].post('./api/company-histories', formData).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_3__["default"].post('./api/company-histories', ormData).then(function (res) {
         alertstore.showSuccessToast(res.data.message);
         setTimeout(function () {
           title.value = '';
@@ -23428,9 +23428,10 @@ __webpack_require__.r(__webpack_exports__);
     var token = (0,_vueuse_core__WEBPACK_IMPORTED_MODULE_3__.useLocalStorage)('token', '');
     var title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var description = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var year = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var imageUpload = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
-      axios__WEBPACK_IMPORTED_MODULE_4__["default"].get("/api/company_historys/".concat(historyId)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_4__["default"].get("/api/company-histories/".concat(historyId)).then(function (res) {
         title.value = res.data.title;
         description.value = res.data.description;
       })["catch"](function (err) {
@@ -23447,7 +23448,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('image', imageUpload.value.files[0]);
       }
       axios__WEBPACK_IMPORTED_MODULE_4__["default"].defaults.headers.common['Authorization'] = token.value;
-      axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("/api/company_historys/".concat(historyId), formData).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("/api/company-histories/".concat(historyId), formData).then(function (res) {
         return alertstore.showSuccessToast(res.data.message);
       })["catch"](function (err) {
         var _err$response2;
@@ -23461,6 +23462,7 @@ __webpack_require__.r(__webpack_exports__);
       token: token,
       title: title,
       description: description,
+      year: year,
       imageUpload: imageUpload,
       updateHistory: updateHistory,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
@@ -30042,29 +30044,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  type: "file",
-  ref: "imageUpload",
-  accept: "image/*"
+  "class": "bg-gray-100 p-16"
+};
+var _hoisted_2 = {
+  "class": "border-2 bg-white border-gray-300 shadow-lg max-w-4xl mx-auto rounded shadow-gray-100"
+};
+var _hoisted_3 = {
+  "class": "w-full bg-white rounded-lg md:mt-0 xl:p-0"
+};
+var _hoisted_4 = {
+  "class": "p-6 space-y-4 md:space-y-6 sm:p-8"
+};
+var _hoisted_5 = {
+  "class": "mb-6 space-y-6"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Edit Company History", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.updateHistory, ["prevent"])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.title = $event;
-    }),
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+    "class": "text-lg text-sky-700 leading-tight tracking-wide capitalize"
+  }, "Edit Client Information", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "name",
+    "class": "block mb-2 text-sm font-medium text-gray-900 capitalize"
+  }, "Client Name", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    placeholder: "Title",
-    required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $setup.description = $event;
+    id: "name",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.name = $event;
     }),
-    placeholder: "Description",
+    "class": "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none",
+    placeholder: "Enter client name",
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.description]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", _hoisted_1, null, 512 /* NEED_PATCH */), _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "submit"
-  }, "Update", -1 /* HOISTED */))], 32 /* NEED_HYDRATION */)]);
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "website",
+    "class": "block mb-2 text-sm font-medium text-gray-900 capitalize"
+  }, "Website", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    id: "website",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return _ctx.website = $event;
+    }),
+    "class": "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none",
+    placeholder: "Enter client website URL"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.website]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "logo",
+    "class": "block mb-2 text-sm font-medium text-gray-900 capitalize"
+  }, "Update Logo", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "file",
+    ref: "logo",
+    onChange: _cache[2] || (_cache[2] = function () {
+      return _ctx.selectLogo && _ctx.selectLogo.apply(_ctx, arguments);
+    }),
+    "class": "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none"
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.updateHistory, ["prevent"]),
+    "class": "text-white bg-blue-700 hover:bg-blue-800 w-fit mx-auto focus:ring-4 focus:ring-blue-300 font-medium rounded-lg capitalize text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block"
+  }, "Update company")])])])])]);
 }
 
 /***/ }),
