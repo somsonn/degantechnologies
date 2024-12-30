@@ -4,52 +4,85 @@ namespace App\Http\Controllers;
 
 use App\Models\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller
 {
- 
     public function index()
     {
-        $contents = Content::all();
-        return response()->json(['data' => $contents], 200);
-    }
+        try {
+            $contents = Content::all();
 
+            if ($contents->isEmpty()) {
+                return response()->json(['error' => 'No content records found'], 404);
+            }
+
+            return response()->json(['data' => $contents], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error'], 500);
+        }
+    }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'type' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'type' => 'required|string',
+            'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'nullable|string|max:255',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048'
+
         ]);
 
-        $content = Content::create($validated);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
 
-        return response()->json(['message' => 'Content created successfully!', 'data' => $content], 201);
+        try {
+            $content = Content::create($request->all());
+
+            return response()->json(['message' => 'Content created successfully!', 'data' => $content], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error, failed to create content'], 500);
+        }
     }
-
     public function show(Content $content)
     {
-        return response()->json(['data' => $content], 200);
+        try {
+            return response()->json(['data' => $content], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error'], 500);
+        }
     }
 
     public function update(Request $request, Content $content)
     {
-        $validated = $request->validate([
-            'type' => 'sometimes|string|max:255',
-            'title' => 'sometimes|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'type' => 'sometimes|string',
+            'title' => 'sometimes|string',
             'description' => 'sometimes|string',
-            'image' => 'nullable|string|max:255',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048'
         ]);
 
-        $content->update($validated);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
 
-        return response()->json(['message' => 'Content updated successfully!', 'data' => $content], 200);
+        try {
+            $content->update($validator->validated());
+
+            return response()->json(['message' => 'Content updated successfully!', 'data' => $content], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error, failed to update content'], 500);
+        }
     }
 
     public function destroy(Content $content)
     {
-        $content->delete();
-        return response()->json(['message' => 'Content deleted successfully!'], 200);
+        try {
+            $content->delete();
+
+            return response()->json(['message' => 'Content deleted successfully!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error, failed to delete content'], 500);
+        }
     }
 }
