@@ -44,14 +44,22 @@ class ContentController extends Controller
             return response()->json(['error' => 'Server error, failed to create content'], 500);
         }
     }
-    public function show(Content $content)
+    public function show(Request $request, $type)
     {
         try {
-            return response()->json(['data' => $content], 200);
+            if (!$type || !is_string($type)) {
+                return response()->json(['error' => 'The type field is required and must be a string.'], 422);
+            }
+            $contents = Content::where('type', $type)->get();
+            if ($contents->isEmpty()) {
+                return response()->json(['error' => "No content found for type: $type"], 404);
+            }
+            return response()->json(['type' => $type, 'data' => $contents], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Server error'], 500);
         }
     }
+    
 
     public function update(Request $request, Content $content)
     {

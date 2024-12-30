@@ -18,10 +18,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
     Route::resource('blogs', BlogController::class);
     Route::resource('team-members', TeamMemberController::class);
     Route::resource('contents', ContentController::class);
+    Route::get('/contents/{type}', [ContentController::class, 'show']);
     Route::resource('company-histories', CompanyHistoryController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('clients', ClientController::class);
