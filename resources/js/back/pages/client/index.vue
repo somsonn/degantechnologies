@@ -19,6 +19,7 @@ const currentPage = ref(1);
 const keywords = ref("");
 
 function getAllClients() {
+  axios.defaults.headers.common["Authorization"] = token.value;
   axios
     .get("./api/clients")
     .then((res) => {
@@ -102,7 +103,9 @@ const nextPage = () => {
     <succs v-if="succ" :succ="succ" />
     <errs v-if="err" :err="err" />
     <div class="m-4 mt-12 rounded">
-      <div class="w-full bg-white border-b-2 rounded border-gray-200 flex flex-row justify-between">
+      <div
+        class="w-full bg-white border-b-2 rounded border-gray-200 flex flex-row justify-between"
+      >
         <h1 class="font-bold text-gray-500 text-lg p-4">Clients List</h1>
         <router-link
           to="/clientpost"
@@ -114,10 +117,14 @@ const nextPage = () => {
       <!-- Table starts here -->
       <div class="flex bg-white flex-col items-center justify-center">
         <div class="w-full relative p-2 overflow-x-auto shadow-md sm:rounded-lg xs:p-5">
-          <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+          <div
+            class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
+          >
             <div v-if="countClients" class="align-middle">
               <p>
-                <span class="text-blue-500 w-4 h-4 bg-gray-200 rounded-full p-2 font-bold">
+                <span
+                  class="text-blue-500 w-4 h-4 bg-gray-200 rounded-full p-2 font-bold"
+                >
                   {{ countClients }}
                 </span>
                 row(s) selected
@@ -131,7 +138,9 @@ const nextPage = () => {
             </div>
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
-              <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
+              <div
+                class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none"
+              >
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <input
@@ -164,12 +173,21 @@ const nextPage = () => {
                 </td>
                 <td class="px-6 py-4">{{ client.name }}</td>
                 <td class="px-6 py-4">
-                  <img v-if="client.logo" :src="client.logo" class="w-16 h-10 object-cover" alt="client-logo" />
+                  <img
+                    v-if="client.logo"
+                    :src="client.logo"
+                    class="w-16 h-10 object-cover"
+                    alt="client-logo"
+                  />
                 </td>
                 <td class="px-6 py-4">
-                  <a v-if="client.website" :href="client.website" target="_blank" class="text-sky-600 hover:underline">{{
-                    client.website
-                  }}</a>
+                  <a
+                    v-if="client.website"
+                    :href="client.website"
+                    target="_blank"
+                    class="text-sky-600 hover:underline"
+                    >{{ client.website }}</a
+                  >
                 </td>
                 <td>
                   <router-link

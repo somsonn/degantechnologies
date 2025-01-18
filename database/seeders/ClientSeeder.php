@@ -13,7 +13,18 @@ class ClientSeeder extends Seeder
     {
         Client::create([
             'user_id' => 1,
-            'name' => 'sewmehon engda.',
+            'name' => 'ministry of education.',
+            'logo'=>'deganclient1.jpg',
+        ]);
+        Client::create([
+            'user_id' => 1,
+            'name' => 'Woldia university.',
+            'logo'=>'deganclient2.jpg',
+        ]);
+        Client::create([
+            'user_id' => 1,
+            'name' => 'wollo university.',
+            'logo'=>'deganclient3.jpg',
         ]);
 
         

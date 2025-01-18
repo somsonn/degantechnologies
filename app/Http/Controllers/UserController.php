@@ -68,5 +68,9 @@ class UserController extends Controller
             return response()->json(['error' => 'Failed to create previous work'], 500);
         }
     }
+    public function getAuthenticatedUser(Request $request)
+    {
+        return response()->json(['user' => $request->user()], 200);
+    }
 
 }

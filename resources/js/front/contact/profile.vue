@@ -8,12 +8,10 @@
                       alt="">
                   </div>
                   <div class="mb-6">
-                    <p class="block mb-2  font-medium  ">Hassen Seid</p>
-                    <p class="block mb-2  font-medium  ">Phassenseid@gmail.com</p>
-                    <p class="block mb-2  font-medium  ">Department head</p>
-                    <p class="block mb- font-medium  "> 033 351 29 33</p>
-                    <label for="message" class="block mb-2 font-medium ">We are open from Monday-Friday,
-                        2:00-11:00</label>
+                    <p class="block mb-2  font-medium  ">Haregewoin menberu</p>
+                    <p class="block mb-2  font-medium  "> CEO</p>
+                    <p class="block mb- font-medium  "> 093092984</p>
+                    <label for="message" class="block mb-2 font-medium ">We are always available</label>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BlogController extends Controller
 {
@@ -44,8 +45,7 @@ class BlogController extends Controller
     public function show(string $id)
     {
         try {
-            $blog = Blog::findOrFail($id);
-
+            $blog = Blog::findOrFail($id); 
             return response()->json(['blog' => $blog], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'No blog found'], 404);
@@ -53,6 +53,7 @@ class BlogController extends Controller
             return response()->json(['error' => 'Server error'], 500);
         }
     }
+    
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [

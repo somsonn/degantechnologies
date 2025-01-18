@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ClientController extends Controller
 {
@@ -31,7 +32,7 @@ class ClientController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'logo' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'website' => 'required|string',
+            'website' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -65,7 +66,7 @@ class ClientController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'logo' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'website' => 'required|string',
+            'website' => 'nullable',
         ]);
 
         if ($validator->fails()) {
