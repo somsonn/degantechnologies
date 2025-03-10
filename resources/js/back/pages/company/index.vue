@@ -5,35 +5,43 @@ import { useLocalStorage } from "@vueuse/core";
 import { useAlertsStore } from "../../../store/useAlertsStore";
 
 const alertstore = useAlertsStore();
-const token = useLocalStorage('token', '');
+const token = useLocalStorage("token", "");
 const histories = ref([]);
 const keywords = ref("");
 const currentPage = ref(1);
 const perPage = ref(5);
 
 const fetchHistories = () => {
-  axios.get('/api/company_historys')
-    .then(res => histories.value = res.data)
-    .catch(err => alertstore.showErrortost(err.response?.data?.error || "An error occurred"));
+  axios.defaults.headers.common["Authorization"] = token.value;
+  axios
+    .get("/api/company_historys")
+    .then((res) => (histories.value = res.data))
+    .catch((err) =>
+      alertstore.showErrortost(err.response?.data?.error || "An error occurred")
+    );
 };
 
 const deleteHistory = (id) => {
-  axios.defaults.headers.common['Authorization'] = token.value;
-  axios.delete(`/api/company_historys/${id}`)
-    .then(res => {
+  axios.defaults.headers.common["Authorization"] = token.value;
+  axios
+    .delete(`/api/company_historys/${id}`)
+    .then((res) => {
       alertstore.showSuccessToast(res.data.message);
-      histories.value = histories.value.filter(history => history.id !== id);
+      histories.value = histories.value.filter((history) => history.id !== id);
     })
-    .catch(err => alertstore.showErrortost(err.response?.data?.error || "An error occurred"));
+    .catch((err) =>
+      alertstore.showErrortost(err.response?.data?.error || "An error occurred")
+    );
 };
 
 // Search and Pagination Logic
 const filteredHistories = computed(() => {
   if (keywords.value.trim()) {
-    return histories.value.filter(history =>
-      history.title.toLowerCase().includes(keywords.value.toLowerCase()) ||
-      history.description.toLowerCase().includes(keywords.value.toLowerCase()) ||
-      history.year.toString().includes(keywords.value)
+    return histories.value.filter(
+      (history) =>
+        history.title.toLowerCase().includes(keywords.value.toLowerCase()) ||
+        history.description.toLowerCase().includes(keywords.value.toLowerCase()) ||
+        history.year.toString().includes(keywords.value)
     );
   }
   return histories.value;
@@ -44,7 +52,9 @@ const paginatedData = computed(() => {
   return filteredHistories.value.slice(start, start + perPage.value);
 });
 
-const totalPages = computed(() => Math.ceil(filteredHistories.value.length / perPage.value));
+const totalPages = computed(() =>
+  Math.ceil(filteredHistories.value.length / perPage.value)
+);
 
 const prevPage = () => {
   if (currentPage.value > 1) currentPage.value--;
@@ -63,7 +73,9 @@ onMounted(fetchHistories);
     <succs v-if="succ" :succ="succ" />
     <errs v-if="err" :err="err" />
     <div class="m-4 mt-12 rounded">
-      <div class="w-full bg-white border-b-2 rounded border-gray-200 flex flex-row justify-between">
+      <div
+        class="w-full bg-white border-b-2 rounded border-gray-200 flex flex-row justify-between"
+      >
         <h1 class="font-bold text-gray-500 text-lg p-4">Company History List</h1>
         <router-link
           to="/companypost"

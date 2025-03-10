@@ -13,6 +13,6 @@ class Content extends Model
         'type',
         'title',
         'description',
-        'image',
-    ];
+            'image',
+        ];
 }

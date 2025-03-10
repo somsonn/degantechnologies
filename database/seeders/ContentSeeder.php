@@ -9,7 +9,7 @@ class ContentSeeder extends Seeder
 {
     public function run()
     {
-        Content::create([
+        Content::create(attributes: [
             'user_id' => 1,
             'type' => 'vision',
             'title' => 'Innovate today, lead tomorrow',
@@ -17,28 +17,28 @@ class ContentSeeder extends Seeder
             'image' => 'vision.jpg',
         ]);
 
-        Content::create([
+        Content::create(attributes: [
             'user_id' => 1,
             'type' => 'mission',
             'title' => 'Our Mission',
             'description' => 'To deliver innovative, high-impact, and sustainable solutions that empower businesses and individuals, creating value in administration, education, healthcare, transport, agriculture, and markets.',
             'image' => 'mission.jpg',
         ]);
-        Content::create([
+        Content::create(attributes: [
             'user_id' => 1,
             'type' => 'industry',
             'title' => 'education',
             'description' => 'we focus on The education industry to improve quality of education',
             'image' => 'vision.jpg',
         ]);
-        Content::create([
+        Content::create(attributes: [
             'user_id' => 1,
             'type' => 'value',
             'title' => 'quality',
             'description' => 'Committed to delivering the highest quality in every product and service.',
             'image' => 'vision.jpg',
         ]);
-        Content::create([
+        Content::create(attributes: [
             'user_id' => 1,
             'type' => 'value',
             'title' => 'Innovation',

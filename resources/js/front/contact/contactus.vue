@@ -1,5 +1,5 @@
 <script setup>
-import axios from "axios"
+import axios from "axios";
 import { ref } from "vue";
 import { useAlertsStore } from "../../store/useAlertsStore";
 
@@ -26,38 +26,49 @@ const ask = () => {
   })
 }
 </script>
+
 <template>
-  <div class="border-2 border-gray-300 shadow-lg rounded shadow-gray-100">
-    <div class="w-full  bg-white rounded-lg   md:mt-0 xl:p-0 ">
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 class="text-lg  text-sky-700 leading-tight tracking-wide">
-          Ask Your Question Regarding With Our Service
-        </h1>
-        <form class="mb-6">
-          <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-            <input v-model="email" type="email" id="email" 
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none"
-              placeholder="Enter Your Email" required>
-          </div>
-          <div class="mb-6">
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 ">Phone number</label>
-            <input v-model="phone_no" type="text" id="phone"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none"
-              placeholder="Enter Your Phone" required>
-          </div>
-          <div class="mb-6">
-            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Question</label>
-            <textarea v-model="question" id="message" rows="4"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              placeholder="Your question..." required></textarea>
-          </div>
-          <button @click.prevent="ask"
-            class="text-white bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block">Send
-            question</button>
-        </form>
+  <div class="max-w-lg mx-auto mt-12 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+    <h1 class="text-center text-lg text-sky-700 font-semibold mb-6">Ask Your Question</h1>
+
+    <form @submit.prevent="ask">
+      <div class="space-y-4">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input v-model="email" type="email" id="email" 
+            class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            placeholder="Your email" required>
+        </div>
+
+        <!-- Phone Field -->
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700">Phone number</label>
+          <input v-model="phone_no" type="text" id="phone"
+            class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            placeholder="Your phone number" required>
+        </div>
+
+        <!-- Question Field -->
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+          <textarea v-model="question" id="message" rows="4"
+            class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Your question..." required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" 
+            class="w-full p-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Submit
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
+<style scoped>
+/* Optional: Add any custom styles for more advanced styling */
+</style>

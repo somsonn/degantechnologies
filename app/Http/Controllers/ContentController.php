@@ -12,12 +12,14 @@ class ContentController extends Controller
     {
         try {
             $contents = Content::all();
-
             if ($contents->isEmpty()) {
-                return response()->json(['error' => 'No content records found'], 404);
+                return response()->json([
+                    'error' => 'No content records found'
+                ], 404);
             }
-
-            return response()->json(['data' => $contents], 200);
+            return response()->json([
+                'data' => $contents
+        ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Server error'], 500);
         }
@@ -44,9 +46,11 @@ class ContentController extends Controller
             return response()->json(['error' => 'Server error, failed to create content'], 500);
         }
     }
-    public function show(Request $request, $type)
+    
+    public function show($type)
     {
         try {
+    
             if (!$type || !is_string($type)) {
                 return response()->json(['error' => 'The type field is required and must be a string.'], 422);
             }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CompanyHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CompanyHistoryController extends Controller
 {
